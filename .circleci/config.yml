@@ -10,16 +10,6 @@ jobs:
           name: Install Dependencies
           command: npm install
       - run:
-          name: Verify Directory
-          command: |
-            if [ ! -d "CICDlambda" ]; then
-              echo "Directory CICDlambda does not exist."
-              exit 1
-            fi
-      - run:
-          name: Zip Lambda Function
-          command: zip -r lambda.zip CICDlambda
-      - run:
           name: Install AWS CLI
           command: sudo apt-get install -y awscli
       - run:
