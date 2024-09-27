@@ -11,7 +11,7 @@ jobs:
           command: npm install
       - run:
           name: Zip Lambda Function
-          command: zip -r code.zip CICDlambda
+          command: zip -r lambda.zip CICDlambda
       - run:
           name: Install AWS CLI
           command: sudo apt-get install -y awscli
@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Deploy Lambda Function
           command: |
-            aws lambda update-function-code --function-name arn:aws:lambda:ap-south-1:253490760837:function:CICDlambda --zip-file fileb://code.zip
+            aws lambda update-function-code --function-name arn:aws:lambda:ap-south-1:253490760837:function:CICDlambda --zip-file fileb://lambda.zip
 
 workflows:
   version: 2
