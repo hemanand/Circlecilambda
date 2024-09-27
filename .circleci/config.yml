@@ -11,7 +11,7 @@ jobs:
           command: npm install
       - run:
           name: Zip Lambda Function
-          command: zip -r lambda.zip lambda
+          command: zip -r code.zip lambda
       - run:
           name: Install AWS CLI
           command: sudo apt-get install -y awscli
