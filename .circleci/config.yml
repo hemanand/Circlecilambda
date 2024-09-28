@@ -24,6 +24,10 @@ jobs:
           name: Package Lambda function
           command: zip -r function.zip .
       - run:
+          name: Remove my-layer folder if exists
+          command: |
+            if [ -d "my-layer" ]; then rm -rf my-layer; fi
+      - run:
           name: Create Lambda Layer
           command: |
             mkdir my-layer
