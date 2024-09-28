@@ -15,6 +15,9 @@ jobs:
             sudo ./aws/install
             aws --version
       - run:
+          name: Set AWS Region
+          command: echo 'export AWS_REGION=ap-south-1' >> $BASH_ENV
+      - run:
           name: Install dependencies
           command: npm install
       - run:
