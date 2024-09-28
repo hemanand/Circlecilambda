@@ -7,6 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Navigate to project directory
+          command: cd smartcarpark_hourly_parking
+      - run:
           name: Install dependencies
           command: npm install
       - run:
