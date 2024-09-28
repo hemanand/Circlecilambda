@@ -24,25 +24,25 @@ jobs:
           name: Package Lambda function
           command: zip -r function.zip .
       - run:
-          name: Remove my-layer folder if exists
+          name: Remove newmy-layer folder if exists
           command: |
-            if [ -d "my-layer" ]; then rm -rf my-layer; fi
+            if [ -d "newmy-layer" ]; then rm -rf newmy-layer; fi
       - run:
           name: Create Lambda Layer
           command: |
-            mkdir my-layer
-            cd my-layer
+            mkdir newmy-layer
+            cd newmy-layer
             mkdir nodejs
             cd nodejs
             npm init -y
             npm install <your-dependencies>
             cd ..
-            zip -r my-layer.zip nodejs
-            aws lambda publish-layer-version --layer-name my-layer --zip-file fileb://my-layer.zip --compatible-runtimes nodejs14.x
+            zip -r newmy-layer.zip nodejs
+            aws lambda publish-layer-version --layer-name newmy-layer --zip-file fileb://newmy-layer.zip --compatible-runtimes nodejs14.x
       - run:
           name: Deploy to AWS Lambda
           command: |
-            aws lambda update-function-configuration --function-name $LAMBDA_ARN --layers arn:aws:lambda:<region>:<account-id>:layer:my-layer:<version>
+            aws lambda update-function-configuration --function-name $LAMBDA_ARN --layers arn:aws:lambda:<region>:<account-id>:layer:newmy-layer:<version>
             aws lambda update-function-code --function-name $LAMBDA_ARN --zip-file fileb://function.zip
 
 workflows:
