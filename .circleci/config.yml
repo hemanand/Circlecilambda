@@ -19,6 +19,17 @@ jobs:
       - checkout
       - run: npm install
       - run: |
+          # Install AWS CLI
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+
+          # Configure AWS CLI
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          aws configure set default.region $AWS_REGION
+
+          # Deploy to AWS Lambda
           zip -r function.zip .
           aws lambda update-function-code --function-name $LAMBDA_ARN --zip-file fileb://function.zip
 
