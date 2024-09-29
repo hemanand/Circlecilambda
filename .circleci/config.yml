@@ -23,22 +23,22 @@ jobs:
       - run:
           name: Package Lambda function
           command: zip -r function.zip .
-      - run:
-          name: Remove newmy-layer folder if exists
-          command: |
-            if [ -d "newmy-layer" ]; then rm -rf newmy-layer; fi
-      - run:
-          name: Create Lambda Layer
-          command: |
-            mkdir newmy-layer
-            cd newmy-layer
-            mkdir nodejs
-            cd nodejs
-            npm init -y
-            npm install <your-dependencies>
-            cd ..
-            zip -r newmy-layer.zip nodejs
-            aws lambda publish-layer-version --layer-name newmy-layer --zip-file fileb://newmy-layer.zip --compatible-runtimes nodejs14.x
+      # - run:
+      #     name: Remove newmy-layer folder if exists
+      #     command: |
+      #       if [ -d "newmy-layer" ]; then rm -rf newmy-layer; fi
+      # - run:
+      #     name: Create Lambda Layer
+      #     command: |
+      #       mkdir newmy-layer
+      #       cd newmy-layer
+      #       mkdir nodejs
+      #       cd nodejs
+      #       npm init -y
+      #       npm install <your-dependencies>
+      #       cd ..
+      #       zip -r newmy-layer.zip nodejs
+      #       aws lambda publish-layer-version --layer-name newmy-layer --zip-file fileb://newmy-layer.zip --compatible-runtimes nodejs14.x
       - run:
           name: Deploy to AWS Lambda
           command: |
