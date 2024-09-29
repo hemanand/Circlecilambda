@@ -1,52 +1,32 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@4.7.0
+
 jobs:
   build:
     docker:
-      - image: circleci/node:latest
-    working_directory: ~/smartcarpark_hourly_parking
+      - image: circleci/node:14
     steps:
       - checkout
-      - run:
-          name: Install AWS CLI v2
-          command: |
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip
-            sudo ./aws/install
-            aws --version
-      - run:
-          name: Set AWS Region
-          command: echo 'export AWS_REGION=ap-south-1' >> $BASH_ENV
-      - run:
-          name: Install dependencies
-          command: npm install --production
-      - run:
-          name: Package Lambda function
-          command: zip -r function.zip .
-      # - run:
-      #     name: Remove newmy-layer folder if exists
-      #     command: |
-      #       if [ -d "newmy-layer" ]; then rm -rf newmy-layer; fi
-      # - run:
-      #     name: Create Lambda Layer
-      #     command: |
-      #       mkdir newmy-layer
-      #       cd newmy-layer
-      #       mkdir nodejs
-      #       cd nodejs
-      #       npm init -y
-      #       npm install <your-dependencies>
-      #       cd ..
-      #       zip -r newmy-layer.zip nodejs
-      #       aws lambda publish-layer-version --layer-name newmy-layer --zip-file fileb://newmy-layer.zip --compatible-runtimes nodejs14.x
-      - run:
-          name: Deploy to AWS Lambda
-          command: |
-            aws lambda update-function-code --function-name $LAMBDA_ARN --zip-file fileb://function.zip
+      - run: npm install
+      - run: npm test
+
+  deploy:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - checkout
+      - run: npm install
+      - run: |
+          zip -r function.zip .
+          aws lambda update-function-code --function-name $LAMBDA_ARN --zip-file fileb://function.zip
 
 workflows:
   version: 2
   build_and_deploy:
     jobs:
       - build
-
+      - deploy:
+          requires:
+            - build
