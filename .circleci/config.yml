@@ -42,7 +42,6 @@ jobs:
       - run:
           name: Deploy to AWS Lambda
           command: |
-            aws lambda update-function-configuration --function-name $LAMBDA_ARN --layers arn:aws:lambda:<region>:<account-id>:layer:newmy-layer:<version>
             aws lambda update-function-code --function-name $LAMBDA_ARN --zip-file fileb://function.zip
 
 workflows:
