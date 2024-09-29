@@ -1,11 +1,11 @@
 {
   "name": "circlecilambda",
   "version": "1.0.0",
-  "description": "",
+  "description": "circlecilambda",
   "main": "index.mjs",
   "scripts": {
     "test": "echo \"Test passed successfully************\""
   },
-  "author": "",
+  "author": "hemanand",
   "license": "ISC"
 }
